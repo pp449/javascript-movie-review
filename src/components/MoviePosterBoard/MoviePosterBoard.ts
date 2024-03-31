@@ -88,6 +88,8 @@ class MoviePosterBoard {
   }
 
   private observeLastItem(observer: IntersectionObserver) {
+    if (this.seeMoreButton.isLastPage()) return;
+
     setTimeout(() => {
       const items = $$(".item-list li");
       const lastItem = items[items.length - 1];
@@ -120,7 +122,7 @@ class MoviePosterBoard {
         movieName
       );
       this.deleteLastPosters(numberOfPosters);
-      if (fetchedMovieInfo) this.addMoviePoster(fetchedMovieInfo);
+      if (fetchedMovieInfo.length) this.addMoviePoster(fetchedMovieInfo);
       else this.notFoundMovie(movieName);
 
       if (observer) this.observeLastItem(observer);
